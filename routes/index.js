@@ -4,13 +4,29 @@ const router = express.Router();
 //Define Validasi Auth
 const authChecker = require('../services/auth_check');
 
-//Define Root Auth
-const routerAuth = require('./absents/in');
+//Define Root Absent In
+const routerIn = require('./absents/in');
 
-//Define API /auth
+//Define Root Absent Out
+const routerOut = require('./absents/out');
+
+//Define Root Absent Status
+const routerStatus = require('./absents/status');
+
+//Define API /absent/in
 router.use('/absent/in', authChecker.checkAuth, (req, res, next) => {
     next();
-}, routerAuth);
+}, routerIn);
+
+//Define API /absent/out
+router.use('/absent/out', authChecker.checkAuth, (req, res, next) => {
+    next();
+}, routerOut);
+
+//Define API /absent/out
+router.use('/absent/status', authChecker.checkAuth, (req, res, next) => {
+    next();
+}, routerStatus);
 
 //Sample Route
 /**

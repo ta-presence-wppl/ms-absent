@@ -24,14 +24,19 @@ const port = process.env.PORT;
 
 //Create Directory for Logger
 const path_logs = app_path.join(__dirname, "logs");
+
 //Create Directory untuk penyimpanan Image
 const path_image_in = app_path.join(__dirname, "images/in");
+const path_image_out = app_path.join(__dirname, "images/out");
 try {
     if (!fs.existsSync(path_logs)) {
         fs.mkdirSync(path_logs, { recursive: true });
     }
     if (!fs.existsSync(path_image_in)) {
         fs.mkdirSync(path_image_in, { recursive: true });
+    }
+    if (!fs.existsSync(path_image_out)) {
+        fs.mkdirSync(path_image_out, { recursive: true });
     }
 } catch (err) {
     console.error(err);

@@ -16,16 +16,14 @@ const validator = require('./authValidator');
 
 //Define Multer Untuk File Upload
 const multer = require('multer');
-
-//Moment JS
-var moment = require('moment');
+var moment = require('moment'); // require
 
 //Define Multer Images Folder
 const imageStorage = multer.diskStorage({
     // Destination to store image     
-    destination: 'images/in',
+    destination: 'images/out',
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-in-' + Date.now()
+        cb(null, file.fieldname + '-out-' + Date.now()
             + path.extname(file.originalname))
         // file.fieldname is name of the field (image)
         // path.extname get the uploaded file extension
@@ -61,34 +59,34 @@ const imageUpload = multer({
  */
 router.get('/', (req, res, next) => {
     res.json({
-        message: 'Sukses GET Absen IN'
+        message: 'Sukses GET Absen OUT'
     })
 });
 
-router.post('/', imageUpload.single('image'), (req, res, next) => {
+router.post('/', imageUpload.single('imageout'), (req, res, next) => {
     var myDate = {
         id_peg: req.user_data.id_peg,
         time: moment().format('kk:mm:ssZ'),
         date: moment().format('YYYY-MM-D'),
-        lokasi_msk: req.body.lokasi_msk,
-        foto_msk: req.file.filename
+        lokasi_plg: req.body.lokasi_plg,
+        foto_plg: req.file.filename
     }
     try {
         async.waterfall([
             (callback) => {
                 new AbsentControllers().checkAbsentIn(myDate).then(x => {
                     if (x) {
+                        callback(null, x);
+                    } else {
                         try {
-                            fs.unlink(path.join(__dirname + '../../../images/in/') + req.file.filename, function () {
+                            fs.unlink(path.join(__dirname + '../../../images/out/') + req.file.filename, function () {
                                 res.send({
-                                    message: 'Anda Sudah Melakukan Absen Kedatangan!'
+                                    message: 'Anda Belum Melakukan Absen Kedatangan!'
                                 })
                             });
                         } catch (error) {
                             res.status(500).send({ error: error.message })
                         }
-                    } else {
-                        callback(null, x);
                     }
                 }).catch(err => {
                     var details = {
@@ -107,9 +105,9 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
                 });
             },
             (checkAbsent, callback) => {
-                new AbsentControllers().createAbsentIn(myDate).then(x => {
+                new AbsentControllers().updateAbsentIn(myDate).then(x => {
                     res.send({
-                        message: 'Sukses POST Absen IN'
+                        message: 'Sukses POST Absen OUT'
                     })
                 }).catch(err => {
                     var details = {
