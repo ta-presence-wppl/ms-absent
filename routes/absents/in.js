@@ -85,6 +85,7 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
                                 })
                             });
                         } catch (error) {
+                            console.error(error)
                             next(error)
                         }
                     } else {
@@ -129,9 +130,11 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
             }
         ]);
     } catch (error) {
+        console.error(error)
         next(error)
     }
 }, (error, req, res, next) => {
+    console.error(error)
     next(error)
 });
 
