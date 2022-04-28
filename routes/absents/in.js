@@ -80,7 +80,7 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
                     if (x) {
                         try {
                             fs.unlink(path.join(__dirname + '../../../images/in/') + req.file.filename, function () {
-                                res.send({
+                                res.status(406).send({
                                     message: 'Anda Sudah Melakukan Absen Kedatangan!'
                                 })
                             });
