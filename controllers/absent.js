@@ -16,6 +16,21 @@ class AbsentControllers {
         })
     }
 
+    checkAbsentOut(data) {
+        return models.presensi.findOne({
+            attributes: {
+                include: ['id_peg']
+            },
+            where: {
+                id_peg: data.id_peg,
+                tanggal: data.date,
+                jam_plg: {
+                    [Op.is]: null,
+                },
+            },
+        })
+    }
+
     createAbsentIn(data) {
         return models.presensi.create({
             id_peg: data.id_peg,

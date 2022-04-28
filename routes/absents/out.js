@@ -74,14 +74,14 @@ router.post('/', imageUpload.single('imageout'), (req, res, next) => {
     try {
         async.waterfall([
             (callback) => {
-                new AbsentControllers().checkAbsentIn(myDate).then(x => {
+                new AbsentControllers().checkAbsentOut(myDate).then(x => {
                     if (x) {
                         callback(null, x);
                     } else {
                         try {
                             fs.unlink(path.join(__dirname + '../../../images/out/') + req.file.filename, function () {
                                 res.send({
-                                    message: 'Anda Belum Melakukan Absen Kedatangan!'
+                                    message: 'Anda Belum Melakukan Absen Kedatangan atau Telah Absen Pulang!'
                                 })
                             });
                         } catch (error) {
