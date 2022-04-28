@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
     })
 });
 
-router.post('/', imageUpload.single('imageout'), (req, res, next) => {
+router.post('/', imageUpload.single('image'), (req, res, next) => {
     var myDate = {
         id_peg: req.user_data.id_peg,
         time: moment().format('kk:mm:ssZ'),
