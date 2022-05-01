@@ -2,10 +2,9 @@ const { query, body, validationResult, param, header, oneOf } = require('express
 
 exports.validate = (method) => {
     switch (method) {
-        case 'check_auth': {
+        case 'check_history': {
             return [
-                body('email', 'email harus diinput').notEmpty(),
-                body('password', 'password harus diinput').notEmpty(),
+                query('date', 'date harus diinput').notEmpty(),
             ]
         }
     }

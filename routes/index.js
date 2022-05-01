@@ -10,6 +10,10 @@ const routerIn = require('./absents/in');
 //Define Root Absent Out
 const routerOut = require('./absents/out');
 
+//Define Root Absent Out
+const routerHistory = require('./absents/history');
+
+
 //Define Root Absent Status
 const routerStatus = require('./absents/status');
 
@@ -23,10 +27,15 @@ router.use('/absent/out', authChecker.checkAuth, (req, res, next) => {
     next();
 }, routerOut);
 
-//Define API /absent/out
+//Define API /absent/status
 router.use('/absent/status', authChecker.checkAuth, (req, res, next) => {
     next();
 }, routerStatus);
+
+//Define API /absent/status
+router.use('/absent/history', authChecker.checkAuth, (req, res, next) => {
+    next();
+}, routerHistory);
 
 //Sample Route
 /**

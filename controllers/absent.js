@@ -53,6 +53,18 @@ class AbsentControllers {
             }
         })
     }
+
+    getAllAbsent(data) {
+        return models.presensi.findAll({
+            attributes: {
+                exclude: ['id_peg', 'id_pre']
+            },
+            where: {
+                id_peg: data.id_peg,
+                tanggal: sequelize.literal("EXTRACT(year FROM tanggal) = EXTRACT(year FROM date('" + data.date + "')) and EXTRACT(month FROM tanggal) = EXTRACT(month FROM date('" + data.date + "'))")
+            },
+        })
+    }
 }
 
 module.exports = AbsentControllers;

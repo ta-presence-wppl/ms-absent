@@ -7,7 +7,7 @@ module.exports = {
       env: {
         "NODE_ENV": "development",
         "PORT": 1102,
-        "DATABASE_CONN": "postgres://postgres:root@localhost:5432/my_presensi",
+        "DATABASE_CONN": "postgres://postgres:root@localhost:5432/my_presence",
         "JWT_CONF_TOKEN": "$1$MVdV2Riq$C37FIkSV7yHA5gowfCKnD0"
       },
       env_production: {
