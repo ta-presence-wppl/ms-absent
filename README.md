@@ -1,5 +1,5 @@
 ## Description
-Service untuk Auth Presensi
+Service untuk Absen dan History Presensi
 
 ## Installation
 
@@ -17,7 +17,7 @@ Email me on ahmad.rivaiy27@gmail.com
 node app.js
 ```
 
-View the website at: http://localhost:3001
+View the website at: http://localhost:1102
 
 ## Supported specifications
 - NodeJS
@@ -32,7 +32,7 @@ View the website at: http://localhost:3001
 
 ## Documentation
 
-View the website at: http://localhost:3001/api-docs.json
+View the website at: http://localhost:1102/api-docs.json
 
 ## File Tree
 
