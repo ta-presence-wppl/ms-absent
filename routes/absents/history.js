@@ -38,7 +38,7 @@ router.get('/', validator.validate("check_history"), validator.verify, (req, res
         
         for (const [key, value] of Object.entries(x)) {
             value['foto_msk'] = 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/in/' + value.foto_msk;
-            value['foto_msk'] = 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/out/' + value.foto_plg;
+            value['foto_plg'] = 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/out/' + value.foto_plg;
         }
         res.json({
             message: 'Sukses GET Absen History',
