@@ -63,6 +63,9 @@ class AbsentControllers {
                 id_peg: data.id_peg,
                 tanggal: sequelize.literal("EXTRACT(year FROM tanggal) = EXTRACT(year FROM date('" + data.date + "')) and EXTRACT(month FROM tanggal) = EXTRACT(month FROM date('" + data.date + "'))")
             },
+            order: [
+                ['tanggal', 'ASC']
+            ]
         })
     }
 }
