@@ -39,7 +39,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     jam_plg: {
       type: DataTypes.TIME,
-      allowNull: true
+      allowNull: true,
+      defaultValue: "CURRENT_TIME"
     },
     lokasi_plg: {
       type: "POINT",
