@@ -68,8 +68,8 @@ router.get('/', (req, res, next) => {
 router.post('/', imageUpload.single('image'), (req, res, next) => {
     var myDate = {
         id_peg: req.user_data.id_peg,
-        time: moment().format('kk:mm:ssZ'),
-        date: moment().format('YYYY-MM-D'),
+        time: moment(new Date()).format('kk:mm:ssZ'),
+        date: moment(new Date()).format('YYYY-MM-D'),
         lokasi_msk: req.body.lokasi_msk,
         foto_msk: req.file.filename
     }
