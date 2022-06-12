@@ -112,6 +112,7 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
                     message: 'Sukses POST Absen IN'
                 })
             }).catch(err => {
+                console.error(err)
                 var details = {
                     parent: err.parent,
                     name: err.name,
