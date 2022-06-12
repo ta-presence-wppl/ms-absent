@@ -105,9 +105,10 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
                 });
             },
             (checkAbsent, callback) => {
+                console.log(myDate)
                 new AbsentControllers().updateAbsentIn(myDate).then(x => {
                     res.send({
-                        message: 'Sukses POST Absen OUT'
+                        message: 'Sukses Melakukan Absen Keluar'
                     })
                 }).catch(err => {
                     var details = {
