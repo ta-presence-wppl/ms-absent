@@ -73,69 +73,61 @@ router.post('/', imageUpload.single('image'), (req, res, next) => {
         lokasi_msk: req.body.lokasi_msk,
         foto_msk: req.file.filename
     }
-    try {
-        async.waterfall([
-            (callback) => {
-                new AbsentControllers().checkAbsentIn(myDate).then(x => {
-                    if (x) {
-                        try {
-                            fs.unlink(path.join(__dirname + '../../../images/in/') + req.file.filename, function () {
-                                res.status(406).send({
-                                    message: 'Anda Sudah Melakukan Absen Kedatangan!'
-                                })
-                            });
-                        } catch (error) {
-                            console.error(error)
-                            next(error)
-                        }
-                    } else {
-                        callback(null, x);
+    async.waterfall([
+        (callback) => {
+            new AbsentControllers().checkAbsentIn(myDate).then(x => {
+                if (x) {
+                    try {
+                        fs.unlink(path.join(__dirname + '../../../images/in/') + req.file.filename, function () {
+                            res.status(406).send({
+                                message: 'Anda Sudah Melakukan Absen Kedatangan!'
+                            })
+                        });
+                    } catch (error) {
+                        console.error(error)
+                        next(error)
                     }
-                }).catch(err => {
-                    var details = {
-                        parent: err.parent,
-                        name: err.name,
-                        message: err.message
-                    }
-                    var error = new Error("Error pada server");
-                    error.status = 500;
-                    error.data = {
-                        date: new Date(),
-                        route: req.originalUrl,
-                        details: details
-                    };
-                    next(error);
-                });
-            },
-            (checkAbsent, callback) => {
-                new AbsentControllers().createAbsentIn(myDate).then(x => {
-                    res.send({
-                        message: 'Sukses POST Absen IN'
-                    })
-                }).catch(err => {
-                    var details = {
-                        parent: err.parent,
-                        name: err.name,
-                        message: err.message
-                    }
-                    var error = new Error("Error pada server");
-                    error.status = 500;
-                    error.data = {
-                        date: new Date(),
-                        route: req.originalUrl,
-                        details: details
-                    };
-                    next(error);
-                });
-            }
-        ]);
-    } catch (error) {
-        console.error(error)
-        next(error)
-    }
-}, (error, req, res, next) => {
-    console.error(error)
-    next(error)
+                } else {
+                    callback(null, x);
+                }
+            }).catch(err => {
+                var details = {
+                    parent: err.parent,
+                    name: err.name,
+                    message: err.message
+                }
+                var error = new Error("Error pada server");
+                error.status = 500;
+                error.data = {
+                    date: new Date(),
+                    route: req.originalUrl,
+                    details: details
+                };
+                next(error);
+            });
+        },
+        (checkAbsent, callback) => {
+            new AbsentControllers().createAbsentIn(myDate).then(x => {
+                res.send({
+                    message: 'Sukses POST Absen IN'
+                })
+            }).catch(err => {
+                var details = {
+                    parent: err.parent,
+                    name: err.name,
+                    message: err.message
+                }
+                var error = new Error("Error pada server");
+                error.status = 500;
+                error.data = {
+                    date: new Date(),
+                    route: req.originalUrl,
+                    details: details
+                };
+                next(error);
+            });
+        }
+    ]);
 });
 
 //exports
