@@ -40,10 +40,17 @@ router.get('/', (req, res, next) => {
     }
     new AbsentControllers().checkAbsentIn(myDate).then(x => {
         if (x) {
-            res.send({
-                message: 'Sudah Melakukan Absen Kedatangan!',
-                data: x
-            })
+            if(x.jam_plg){
+                res.send({
+                    message: 'Sudah Melakukan Absen Hari Ini!',
+                    data: x
+                })
+            }else{
+                res.send({
+                    message: 'Sudah Melakukan Absen Kedatangan!',
+                    data: x
+                })
+            }
         } else {
             res.send({
                 message: 'Belum Melakukan Absen Kedatangan!',
