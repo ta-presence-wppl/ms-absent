@@ -21,7 +21,7 @@ const setupLogging = (app, path) => {
     });
 
     app.use((error, req, res, next) => {
-        logger.error({route: req.originalUrl, message: error.message})
+        logger.error({route: req.originalUrl, detail: error})
         if(process.env.NODE_ENV != 'production'){
             res.json({
                 message: error.message,
