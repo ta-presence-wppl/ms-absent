@@ -38,7 +38,7 @@ router.get('/', validator.validate("check_history"), validator.verify, (req, res
         for (const [key, value] of Object.entries(x)) {
             value['foto_msk'] = value.foto_msk != null ? 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/in/' + value.foto_msk : null;
             value['foto_plg'] = value.foto_plg != null ? 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/out/' + value.foto_plg : null;
-            value['jam_plg'] = value.jam_plg != null ?  moment(value.jam_plg).format('kk:mm:ssZ') : null;
+            value['jam_plg'] = value.jam_plg != null ?  moment(new Date('2022-01-01 ' + value.jam_plg)).format('kk:mm:ssZ') : null;
         }
         res.json({
             message: 'Sukses GET Absen History',
